@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Petualangan Pola Bilangan – Kelas 4A</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eaf6ff;--card:#fff;--ink:#12355b;--mute:#4d6a8a;--line:#c9defa;--y:#ffc93c;--r:#ff6b6b;--g:#17a394;--b:#4d96ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e2238;--card:#17314d;--ink:#f2f7ff;--mute:#a9c1dd;--line:#2c4b6d}}
+:root[data-theme="dark"]{--bg:#0e2238;--card:#17314d;--ink:#f2f7ff;--mute:#a9c1dd;--line:#2c4b6d}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Fredoka',system-ui,'Segoe UI',sans-serif;font-size:clamp(18px,1.6vw,26px);min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer;border:0}
+#top{display:flex;gap:10px;flex-wrap:wrap;padding:10px 16px;background:var(--card);border-bottom:3px solid var(--line);position:sticky;top:0;z-index:5}
+.team{flex:1;min-width:130px;border:3px solid transparent;border-radius:16px;padding:6px 12px;background:var(--bg);display:flex;align-items:center;gap:8px;justify-content:space-between}
+.team.on{border-color:var(--c);box-shadow:0 0 0 3px var(--c) inset}
+.team i{width:14px;height:14px;border-radius:50%;background:var(--c);flex:none}
+.team span{flex:1;text-align:left;font-weight:600;font-size:.8em}
+.team b{font-size:1.3em}
+.adj{background:none;font-size:1em;padding:0 6px;color:var(--mute)}
+#steps{display:flex;gap:6px;padding:10px 16px;overflow-x:auto}
+.stp{flex:none;padding:6px 14px;border-radius:99px;background:var(--card);border:2px solid var(--line);font-size:.75em;color:var(--mute)}
+.stp.on{background:var(--y);color:#12355b;border-color:var(--y);font-weight:700}.stp.ok{border-color:var(--g)}
+main{max-width:1200px;margin:0 auto;padding:8px 16px 40px}
+.card{background:var(--card);border-radius:24px;padding:clamp(16px,2.4vw,34px);border:3px solid var(--line)}
+h1{font-size:2.1em;margin:.1em 0}h2{font-size:1.6em;margin:.1em 0 .3em}p{margin:.4em 0;line-height:1.4}
+.mute{color:var(--mute);font-size:.85em}
+.btn{background:var(--b);color:#fff;padding:14px 28px;border-radius:18px;font-weight:700;margin:6px 6px 0 0;box-shadow:0 5px 0 rgba(0,0,0,.18)}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.btn.y{background:var(--y);color:#12355b}.btn.g{background:var(--g)}
+.seq{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}
+.n{min-width:clamp(60px,7vw,100px);padding:12px;border-radius:18px;background:var(--bg);border:3px solid var(--line);text-align:center;font-size:1.6em;font-weight:700}
+.n.blank{border-style:dashed;color:var(--mute)}.n.fill{background:var(--y);color:#12355b;border-style:solid;border-color:var(--y)}
+.diff{font-size:.85em;color:var(--r);font-weight:700}
+.tiles,.rules,.opts{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.tile,.opt,.rule{background:var(--card);border:3px solid var(--line);border-radius:16px;padding:10px 22px;font-weight:700;font-size:1.2em;min-width:84px}
+.tile.used,.opt.no{opacity:.3;pointer-events:none}.opt.yes{background:var(--g);color:#fff;border-color:var(--g)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.shake{animation:sh .35s}@keyframes sh{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{padding:10px 20px;border-radius:14px;background:var(--bg);border:3px solid var(--line);font-weight:700}.tab.on{background:var(--b);color:#fff;border-color:var(--b)}
+.breath{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--y),var(--b));margin:18px auto;display:grid;place-items:center;color:#12355b;font-weight:700;font-size:1.3em;animation:br 8s ease-in-out infinite}
+@keyframes br{0%,100%{transform:scale(.6)}50%{transform:scale(1.15)}}
+@media (prefers-reduced-motion:reduce){.breath{animation:none}}
+.char{display:inline-block;background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:3px 12px;margin:4px 6px 0 0;font-size:.7em}
+details{margin-top:14px;font-size:.75em;color:var(--mute)}summary{cursor:pointer;font-weight:600}
+.pod{display:flex;gap:10px;align-items:flex-end;justify-content:center;margin:18px 0}
+.pod div{flex:1;max-width:160px;border-radius:16px 16px 0 0;text-align:center;padding:10px 4px;color:#fff;font-weight:700}
+#toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 26px;border-radius:99px;font-weight:700;opacity:0;transition:opacity .25s;pointer-events:none;z-index:9}
+#toast.on{opacity:1}
+.emo{font-size:2.2em;background:var(--bg);border:3px solid var(--line);border-radius:18px;padding:6px 18px}.emo.on{border-color:var(--y);background:var(--y)}
+</style>
+</head>
+<body>
+<div id="top"></div><div id="steps"></div><main id="m"></main><div id="toast"></div>
+<script>
+var T=[['Kancil','#ff6b6b'],['Gajah','#ff9f1c'],['Harimau','#17a394'],['Elang','#4d96ff'],['Penyu','#9b5de5'],['Lumba-lumba','#e0489b']].map(function(a){return{n:'Kelompok '+a[0],c:a[1],s:0}});
+var cur=0,st=0,kuis=0,hots=0,done={};
+var S=[
+{t:'Mulai',w:'Mindful · 10 menit',k:['Mindful','Joyful'],tp:'Pendahuluan RPP: salam, doa, presensi 36 siswa, napas sadar, apersepsi di Papan Interaktif Digital (MPI).'},
+{t:'Apa itu pola?',w:'Orientasi Masalah · 8 menit',k:['Penalaran kritis'],tp:'PBL tahap 1: studi kasus pola 4, 8, 12, 16 dan pola di kehidupan sehari-hari.'},
+{t:'Jelajah Pola',w:'Penyelidikan · 15 menit',k:['Penalaran kritis','Kolaborasi'],tp:'PBL tahap 3: pola bertambah, berkurang, loncat, lalu mencari aturan dari selisih dua bilangan berurutan.'},
+{t:'Misi LKPD',w:'Kelompok · 15 menit',k:['Kolaborasi','Komunikasi'],tp:'PBL tahap 2 dan 4: LKPD 6 kelompok @ 6 siswa. Isi urutan bilangan, lalu wakil kelompok menulis di layar sentuh.'},
+{t:'Tebak Pola',w:'Permainan · 5 soal',k:['Kolaborasi','Penalaran kritis'],tp:'PBL tahap 5: permainan beregu. Giliran kelompok berputar otomatis.'},
+{t:'Tantangan HOTS',w:'Pemecahan masalah',k:['Penalaran kritis','Kreativitas'],tp:'Soal uraian kancing Ani: 2, 5, 8, 11. Siswa menjelaskan aturan dengan kata-kata sendiri.'},
+{t:'Kuis',w:'Evaluasi mandiri · 5 soal',k:['Mindful','Meaningful'],tp:'Asesmen formatif. Setiap benar 15 poin; bersama HOTS 25 poin, total nilai kelas 100.'},
+{t:'Refleksi',w:'Penutup',k:['Mindful','Meaningful'],tp:'Refleksi mendalam dengan 4 pertanyaan, penguatan karakter, doa penutup.'}];
+
+function bar(){var h='';T.forEach(function(t,i){h+='<div class="team'+(i==cur?' on':'')+'" style="--c:'+t.c+'" onclick="cur='+i+';bar()"><i></i><span>'+t.n.replace('Kelompok ','')+'</span><b>'+t.s+'</b>'+(i==cur?'<button class="adj" onclick="event.stopPropagation();pt(-5,1)">−</button><button class="adj" onclick="event.stopPropagation();pt(5,1)">+</button>':'')+'</div>'});
+document.getElementById('top').innerHTML=h;
+var s='';S.forEach(function(x,i){s+='<button class="stp'+(i==st?' on':'')+(done[i]?' ok':'')+'" onclick="go('+i+')">'+(i+1)+'. '+x.t+'</button>'});document.getElementById('steps').innerHTML=s}
+function pt(p,q){T[cur].s=Math.max(0,T[cur].s+p);bar();if(!q)toast((p>0?'+':'')+p+' poin untuk '+T[cur].n)}
+function toast(t){var e=document.getElementById('toast');e.textContent=t;e.className='on';clearTimeout(toast.t);toast.t=setTimeout(function(){e.className=''},1800)}
+function $(q){return document.querySelector(q)}
+function shell(inner){var x=S[st];return'<div class="card"><div class="mute">'+x.w+'</div>'+inner+'<div>'+x.k.map(function(k){return'<span class="char">'+k+'</span>'}).join('')+'</div><details><summary>Catatan guru (RPP, TPACK, MPI)</summary><p>'+x.tp+'</p></details></div>'}
+function nextBtn(){return st<S.length-1?'<button class="btn y" onclick="done[st]=1;go(st+1)">Lanjut ▶</button>':''}
+function go(i){st=i;bar();R[i]();scrollTo(0,0)}
+function fill(el,c,cb){var i=0,mist=0;
+el.innerHTML='<div class="seq">'+c.seq.map(function(n){return'<b class="n">'+n+'</b>'}).join('')+c.ans.map(function(){return'<b class="n blank">?</b>'}).join('')+'</div><div class="tiles"></div><div class="rules"></div>';
+var bl=el.querySelectorAll('.blank'),tl=el.querySelector('.tiles'),ru=el.querySelector('.rules');
+c.tiles.forEach(function(v){var b=document.createElement('button');b.className='tile';b.textContent=v;b.onclick=function(){if(v==c.ans[i]){bl[i].textContent=v;bl[i].className='n fill';b.className='tile used';i++;if(i==c.ans.length)rules()}else{mist++;b.classList.add('shake');setTimeout(function(){b.classList.remove('shake')},400)}};tl.appendChild(b)});
+function rules(){ru.innerHTML='<p style="width:100%;margin:6px 0">Apa aturan polanya? (hitung selisih dua bilangan berurutan)</p>';c.rules.forEach(function(r){var b=document.createElement('button');b.className='rule';b.textContent=r;b.onclick=function(){if(r==c.rule){b.className='rule opt yes';var p=mist?10:20;pt(p);ru.innerHTML='<p><b>Benar! Aturannya '+c.rule+'.</b> '+(c.say||'')+'</p>';cb&&cb()}else{b.classList.add('shake');b.style.opacity=.3}};ru.appendChild(b)})}}
+function mc(el,qs,o){var q=0,tries=0,got=0;
+function show(){var x=qs[q];tries=0;
+el.innerHTML='<p class="mute">Soal '+(q+1)+' dari '+qs.length+(o.rot?' · Giliran: <b style="color:'+T[cur].c+'">'+T[cur].n+'</b>':'')+'</p><h2>'+x.q+'</h2><div class="opts"></div><div class="fb"></div>';
+var ob=el.querySelector('.opts');
+x.o.forEach(function(v,k){var b=document.createElement('button');b.className='opt';b.textContent=(o.abc?'ABCD'[k]+'. ':'')+v;b.onclick=function(){if(k==x.a){b.classList.add('yes');if(tries==0)got++;var p=tries==0?o.pts:(o.pts/2|0);if(o.team)pt(p);else if(o.pts&&tries==0){o.sc(o.pts);toast('+'+o.pts+' poin kelas')}el.querySelector('.fb').innerHTML='<p><b>Tepat!</b> '+(x.e||'')+'</p><button class="btn y" id="nx">'+(q<qs.length-1?'Soal berikutnya ▶':'Selesai ✔')+'</button>';ob.style.pointerEvents='none';$('#nx').onclick=function(){if(q<qs.length-1){q++;if(o.rot)cur=(cur+1)%T.length,bar();show()}else{if(o.rot)cur=(cur+1)%T.length,bar();o.end(got)}}}else{tries++;b.classList.add('no','shake');if(o.team&&o.rot){toast('Belum tepat, kelompok lain boleh mencoba')}}};ob.appendChild(b)})}
+show()}
+var R=[
+function(){$('#m').innerHTML=shell('<h1>Petualangan Pola Bilangan</h1><p>Matematika Kelas IV · SD Khusus Al Rahmah · Bu Dwi Pusparini, S.Pd.</p><p><b>Siap belajar?</b> Duduk tegak. Tarik napas pelan… hembuskan pelan…</p><div class="breath">Tarik · Hembus</div><p class="mute">Kelas terbagi 6 kelompok @ 6 siswa. Sentuh nama kelompok di bagian atas untuk memilih kelompok yang bermain.</p><button class="btn g" onclick="done[0]=1;toast(\'Hebat! Kita siap belajar\');go(1)">Kami siap! ▶</button>')},
+function(){$('#m').innerHTML=shell('<h2>Pertanyaan pemantik</h2><p>“Bagaimana cara kita tahu nomor rumah berikutnya tanpa berjalan sampai ujung jalan?”</p><p>Nomor rumah di jalan depan sekolah:</p><div id="g1"></div><p style="margin-top:14px"><b>Pola bilangan</b> adalah susunan angka yang mengikuti aturan tertentu: urut, teratur, dan bisa diprediksi. Kita temukan di nomor rumah, kalender, kursi, dan tangga.</p>'+nextBtn());
+mc($('#g1'),[{q:'Rumah: 2, 4, 6, 8, … Nomor rumah berikutnya?',o:[9,10,12,7],a:1,e:'Setiap rumah bertambah 2.'}],{pts:10,team:1,end:function(){toast('Pola terlihat jelas!')}})},
+function(){var D=[['Bertambah',2,'+2',[2,4,6,8,10],'Setiap langkah lebih besar.'],['Berkurang',20,'−2',[20,18,16,14,12],'Setiap langkah lebih kecil.'],['Loncat',5,'+5',[5,10,15,20,25],'Ayo melompat lima-lima!']],c=0,k=1;
+function draw(){var d=D[c],h='<div class="tabs">'+D.map(function(x,i){return'<button class="tab'+(i==c?' on':'')+'" onclick="c3('+i+')">Pola '+x[0]+'</button>'}).join('')+'</div><p>'+d[4]+' Tekan Lompat untuk melihat bilangan berikutnya.</p><div class="seq">';
+d[3].slice(0,k).forEach(function(n,i){h+=(i?'<span class="diff">'+d[2]+'</span>':'')+'<b class="n fill">'+n+'</b>'});h+='</div>';
+if(k<5)h+='<button class="btn g" onclick="c3b()">Lompat! ▶</button>';else h+='<p>Selisih 2 bilangan berurutan: <b>'+d[3][1]+' − '+d[3][0]+' = '+Math.abs(d[3][1]-d[3][0])+'</b>. Aturannya?</p><div class="opts" id="ro"></div>';
+$('#pl').innerHTML=h;if(k==5){['+2','−2','+5','+3'].forEach(function(r){var b=document.createElement('button');b.className='opt';b.textContent=r;b.onclick=function(){if(r==d[2]){b.classList.add('yes');pt(5);toast('Aturan ditemukan!');done[c+'p']=1}else b.classList.add('no','shake')};$('#ro').appendChild(b)})}}
+window.c3=function(i){c=i;k=1;draw()};window.c3b=function(){k++;draw()};
+$('#m').innerHTML=shell('<h2>Jelajah pola bilangan</h2><p>Langkah menemukan aturan: pilih dua angka berurutan, hitung selisihnya, cek lagi dengan pasangan lain.</p><div id="pl"></div>'+nextBtn());draw()},
+function(){$('#m').innerHTML=shell('<h2>Misi LKPD Kelompok</h2><p>Kelompok yang sedang bermain: <b style="color:'+T[cur].c+'">'+T[cur].n+'</b>. Isi tiga titik dengan kartu angka, lalu pilih aturannya.</p><h2>a)</h2><div id="a"></div><h2>b)</h2><div id="b"></div><h2>c)</h2><div id="c"></div><p class="mute">Setelah selesai, wakil kelompok menulis dua pola ciptaan sendiri (bertambah dan berkurang) di layar sentuh, kelompok lain menebak aturannya.</p>'+nextBtn());
+fill($('#a'),{seq:[6,10,14,18],ans:[22,26,30],tiles:[22,24,26,28,30],rules:['+2','+4','+6'],rule:'+4'});
+fill($('#b'),{seq:[40,35,30,25],ans:[20,15,10],tiles:[10,15,20,25,45],rules:['−5','+5','−10'],rule:'−5'});
+fill($('#c'),{seq:[7,14,21,28],ans:[35,42,49],tiles:[32,35,42,49,56],rules:['+6','+7','+8'],rule:'+7'})},
+function(){var P=[[[2,4,6,8],10,'+2'],[[10,20,30,40],50,'+10'],[[25,20,15,10],5,'−5'],[[3,6,9,12],15,'+3'],[[50,45,40,35],30,'−5']];
+var qs=P.map(function(p){var o=[p[1],p[1]+1,p[1]+2,p[1]-2].sort(function(){return Math.random()-.5});return{q:p[0].join(', ')+', … ?',o:o,a:o.indexOf(p[1]),e:'Aturan '+p[2]+'.'}});
+$('#m').innerHTML=shell('<h2>Permainan Tebak Pola</h2><div id="g"></div>');
+mc($('#g'),qs,{pts:10,team:1,rot:1,end:function(){$('#g').innerHTML='<h2>Permainan selesai!</h2><p>Lihat papan skor di atas. Semua kelompok hebat!</p>'+nextBtn()}})},
+function(){$('#m').innerHTML=shell('<h2>Tantangan HOTS</h2><p>Ani menyusun kancing dengan pola 2, 5, 8, 11, … Berapa tiga angka berikutnya, dan apa aturannya?</p><div id="h"></div><div id="j"></div>');
+fill($('#h'),{seq:[2,5,8,11],ans:[14,17,20],tiles:[12,14,15,17,20],rules:['+2','+3','+4'],rule:'+3',say:'5 − 2 = 3 dan 8 − 5 = 3.'},function(){hots=25;$('#j').innerHTML='<p>Ceritakan dengan kata-katamu: kenapa aturannya +3?</p><p class="mute">Wakil kelompok menjelaskan. Nilai HOTS: 25 poin.</p>'+nextBtn()})},
+function(){var Q=[['2, 4, 6, … berikutnya adalah …',[7,8,9,10],1],['15, 20, 25, … berikutnya adalah …',[30,35,40,45],0],['Aturan pola 10, 8, 6, 4 adalah …',['+2','−2','+4','−4'],1],['3, 6, 9, … berikutnya adalah …',[10,11,12,13],2],['Pola +5 dimulai dari 5 adalah …',['5, 10, 15','5, 9, 13','5, 8, 11','5, 7, 9'],0]].map(function(x){return{q:x[0],o:x[1],a:x[2]}});
+$('#m').innerHTML=shell('<h2>Kuis Evaluasi</h2><p class="mute">Jawab sendiri-sendiri, lalu tekan jawaban yang dipilih kelas.</p><div id="q"></div>');
+mc($('#q'),Q,{abc:1,pts:15,sc:function(p){kuis+=p},end:function(g){$('#q').innerHTML='<h2>Skor kuis: '+kuis+' dari 75</h2><p>Nilai kelas (kuis + HOTS): <b>'+(kuis+hots)+'</b> dari 100.</p>'+nextBtn()}})},
+function(){var Q=['Apa yang sudah kamu pelajari?','Bagian mana yang paling mudah?','Bagian mana yang masih membingungkan?','Apakah kamu senang belajar pola bilangan?'];
+var h='<h2>Refleksi</h2>';Q.forEach(function(q,i){h+='<p>'+q+'</p><div>'+['😄','🙂','😐','🤔'].map(function(e){return'<button class="emo" onclick="this.parentNode.querySelectorAll(\'.emo\').forEach(function(x){x.className=\'emo\'});this.className=\'emo on\'">'+e+'</button>'}).join(' ')+'</div>'});
+var r=T.slice().sort(function(a,b){return b.s-a.s});var p=r.slice(0,3);
+h+='<h2 style="margin-top:20px">Juara hari ini</h2><div class="pod">'+[p[1],p[0],p[2]].map(function(t,i){var ht=[110,150,80][i];return'<div style="background:'+t.c+';height:'+ht+'px">'+t.n.replace('Kelompok ','')+'<br>'+t.s+'</div>'}).join('')+'</div><p style="text-align:center"><b>Matematika itu menyenangkan, karena setiap angka memiliki pola!</b></p>';
+$('#m').innerHTML=shell(h);done[7]=1;bar()}];
+bar();go(0);
+</script>
+</body>
+</html>
